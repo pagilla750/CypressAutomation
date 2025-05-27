@@ -23,3 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('sumofprodcuts', () => {
+
+    let sum = 0
+    cy.get('td:nth-child(4) strong')
+        .each(($el) => {
+            const amount = Number($el.text().split(" ")[1].trim())
+            sum = sum + amount
+            cy.log(sum)
+        })
+        .then(() => {
+            expect(sum).to.be.lessThan(300000)
+        })
+})
